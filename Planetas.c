@@ -1,41 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-/*struct my_record {
-   char name;
-   float masa;
-   float pox;
-   float poy;
-   float poz;
-   float velx;
-   float vely;
-   float velz;
-  
-};
+int convert(int i , int j);
 
-int main(void) {
-  
-  FILE* my_file = fopen("coordinates.csv","r");
-  struct my_record records[10];
-  size_t count = 0;
-  for (; count < sizeof(records); ++count)
-{
-    double got = fscanf(my_file, "%c,%f", &records[count].name, &records[count].masa);
-    if (got != 2) break; // wrong number of tokens - maybe end of file
-    printf("%e",got);
-}
-//for (size_t i = 0; i < count; i++) {
-//       printf("%c,%f\n", records[i].name, records[i].masa);
-//   }
- 
-  fclose(my_file);
-  return 0;
-}
-*/
+double aceleracion ();
+double velocidad ();
 
 
-
-double *main(void){
+void main(){
     FILE *file;
     file =fopen("coordinates.csv","r");
     int len =250;
@@ -54,18 +26,27 @@ double *main(void){
       while(almline !=NULL){
         mat=atof(almline);
 	
-	//printf ("%e\n",matriz);
-	matriz[i]=mat;
+		//printf ("%e\n",matriz);
+		matriz[i]=mat;
 	  
-	//printf("%e \t",matriz[i]);
+		//printf("%e  %f %d \n",matriz[i], mat, i);
 	
-	almline=strtok(NULL,delimiter);
-	j+=1;
+		almline=strtok(NULL,delimiter);
+		i+=1;
       }
-      //printf("\n");
-      i+=1;
     }
-    return matriz;
+    //double a=matriz[convert(6,0)];
+    for(j=0;j<10;j++){
+    	if(j!=1){
+    		printf("%e\n", matriz[convert(j, 2)]);
+    	}
 
-    
-}
+    }
+   
+ }
+
+int convert(int i, int j)
+{	
+	return i*8 + j;
+}	
+ 
