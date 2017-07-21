@@ -10,13 +10,13 @@ void masas(double *matriz);
 int tiempos(double *t, int index);
 //double r (double *matriz1, int i0);
 
+void dist(double *matriz1,double *r, int i0);
+
 double aceleracionx (double *matriz1, double *ax, int i0);
-double aceleraciony (double *matriz1, double *ay, int i0);
-double aceleracionz (double *matriz1, double *az, int i0);
+
 
 void leapfrogx(double *x_n, double *vx_n, double *vx_half,double *ax,int n, int index, double *matriz1,double t);
-void leapfrogy(double *y_n, double *vy_n, double *vy_half,double *ay,int n, int index, double *matriz1,double t);
-void leapfrogz(double *z_n, double *vz_n, double *vz_half,double *az,int n, int index, double *matriz1,double t);
+
 
 
 void main(){
@@ -51,6 +51,7 @@ void main(){
 	double *vz_n= malloc((N)*sizeof(double));
 	double *vz_half=malloc((N)*sizeof(double));
 
+	double *r=malloc((10)*sizeof(double));
 
     while(fgets(line,len,file)){
       //printf("line is %s", line);
@@ -67,8 +68,13 @@ void main(){
 		i+=1;
       }
     }
-    printf("%e\n", matriz[convert(1,1)]);
-    printf("%e\n", matriz[convert(2,1)]);
+
+    dist(matriz , r , 1);
+    for (i=0; i<10;i++){
+    	  printf("%e\n", r[i]);
+   }    
+    //printf("%e\n", matriz[convert(1,1)]);
+    //printf("%e\n", matriz[convert(2,1)]);
 
     //for (i=0; i<10;i++){
     //	  printf("%e\n", matriz[i,1]);
@@ -137,28 +143,24 @@ int tiempos(double *t, int index){
 
 }
 
-
-/*double r (double *matriz1, int i0){
-	int j;
-	double r[10];
-	//double x[9];
-	//double y[9];
-	//double z[9];
-
-	for(j=0;j<10;j++){
-    	if(j!=i0){
-    		//x[j]=(matriz1[convert(i0, 2)]-matriz1[convert(j, 2)]);
-    		//y[j]=(matriz1[convert(i0, 3)]-matriz1[convert(j,3)]);
-    		//z[j]=(matriz1[convert(i0, 4)]-matriz1[convert(j, 4)]);
-    		r[j]=sqrt(pow((matriz1[convert(i0, 2)]-matriz1[convert(j, 2)]),2.0)+pow((matriz1[convert(i0, 3)]-matriz1[convert(j,3)]),2.0)+pow((matriz1[convert(i0, 4)]-matriz1[convert(j, 4)]),2.0));
-    		//printf("%e\n", r[j]);
+void dist(double *matriz1, double *r , int i0){
+	double x,y,z;
+	int i;
+	for(i=0;i<10;i++){
+    	if(i!=i0){
+    		x=(matriz1[convert(i0, 2)]-matriz1[convert(i, 2)]);
+    		y=(matriz1[convert(i0, 3)]-matriz1[convert(i,3)]);
+    		z=(matriz1[convert(i0, 4)]-matriz1[convert(i, 4)]);
+    		r[i]=sqrt(pow(x,2.0)+pow(y,2.0)+pow(z,2.0));
+    		
     	}
+	else{
+	r[i]=0;
+	}
     
     }
-    return r[i0];
 
-}*/
-
+}
 
 
 /*double aceleracionx (double *matriz1, double *ax, int i0){
